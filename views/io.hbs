@@ -1,0 +1,17 @@
+<script src="/socket.io/socket.io.js" type="text/javascript" charset="utf-8"></script>
+<button  style="heigth:100px;padding:10px" id="btn">click</button>
+<script type="text/javascript" charset="utf-8">
+    
+    function setup(){
+        const socket = io();
+        const btn = document.querySelector("#btn");
+        btn.onclick = ()=>{
+            alert("hi");
+            socket.emit("chat message", "hello")
+        }
+    }
+    setup();
+</script>
+
+
+

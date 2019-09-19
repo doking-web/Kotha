@@ -1,0 +1,73 @@
+
+
+
+
+
+
+.chat-layout{
+    /*height: 100vh;*/
+    /*background-color: #333;*/
+    
+    position: relative;
+}
+
+.chat-layout .inputs{
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+}
+
+
+.chat-layout .inputs input, #send{
+    border-radius: 10px;
+    height: 40px;
+    border: 1px solid #8a9baf;
+    outline: none;
+    padding: 5px;
+    font-size: 24px;
+}
+
+.chat-layout .inputs input{
+    color: #2d2d2d;
+}
+
+.chat-layout .inputs #send{
+    background: #ddd;
+    position: absolute;
+    right: 10px;
+}
+
+
+
+/*.chat-layout #msg{
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}*/
+.chat-layout .inputs > div{
+    margin-bottom: 20px
+}
+
+
+.chat-layout #msg div{
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.chat-layout #msg.he div{
+    background: #adcd3f;
+}
+
+.chat-layout #msg.me{
+    text-align: right;
+}
+
+
+.chat-layout #msg.me div{
+
+    background: #cdcdcd89;
+    
+}

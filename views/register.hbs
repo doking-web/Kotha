@@ -1,0 +1,67 @@
+
+
+
+
+<form method="post" action="/register">
+    <h1>Register</h1>
+    
+    
+    {{#if error}}
+        {{#each error}}
+        <div class="error">
+            {{this}}
+        </div>
+        {{/each}}
+    {{/if}}
+    
+    
+    <label>Full Name</label>
+    <input type="text" name="name" placeholder="Name">
+    
+    <label>Username</label>
+    <input type="text" name="username" placeholder="Username">
+    
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Email">
+    
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Password">
+    
+    <label>Verify Password</label>
+    <input type="password" name="re-password" placeholder="Verify password">
+    
+    <input type="submit" value="Submit">
+</form>
+
+
+<style>
+    
+    form{
+        margin: 10px 20px;
+        padding: 5px;
+    }
+    
+    label{
+        display: block;
+        margin-top: 20px;
+    }
+    input{
+        font-size: 20px;
+        display: block;
+        height: 40px;
+        width: 100%;
+    }
+    
+    input[type="submit"]{
+        margin-top: 20px;
+        background: #2030ad;
+        padding: 7px 20px;
+        height: auto;
+        border: none;
+        color: white;
+        width: auto;
+        border-radius: 2px;
+    }
+    
+    
+</style>

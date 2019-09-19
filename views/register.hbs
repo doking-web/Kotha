@@ -25,12 +25,18 @@
     <input type="email" name="email" placeholder="Email">
     
     <label>Password</label>
-    <input type="password" name="password" placeholder="Password">
-    
+    <input class="test-input" type="password" name="password" placeholder="Password">
+    <div class="error pass-valid">Password not valid</div>
+
     <label>Verify Password</label>
     <input type="password" name="re-password" placeholder="Verify password">
     
     <input type="submit" value="Submit">
+
+    <p class="login-link">Already have account
+    <a href="/login">Login</a>
+    .
+    </p>
 </form>
 
 
@@ -63,5 +69,19 @@
         border-radius: 2px;
     }
     
-    
+    .login-link{
+        display: block;
+        margin: 10px auto;
+    }
+    .pass-valid{
+        display: none;
+    }
+
 </style>
+
+<script src="/script/register.js"></script>
+
+
+
+
+

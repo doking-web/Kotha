@@ -10,7 +10,7 @@
 /views
 #custom
 /public/content
-
+.env
 # dependencies
 /node_modules
 

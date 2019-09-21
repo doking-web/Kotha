@@ -10,7 +10,7 @@ module.exports = (server, sessionStore) => {
     //io.use();
     io.use(passportSocketIo.authorize({
       key: 'connect.sid',
-      secret: process.env.SECRET_KEY_BASE || 'keyboard cat',
+      secret: process.env.SECRET_KEY_BASE,
       store: sessionStore,
       passport: passport,
       cookieParser: cookieParser

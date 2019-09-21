@@ -13,13 +13,49 @@ function setup(){
         {from:"he", msg:"wc"},
         
         ]
-    
-    document.querySelector(".inputs")
+    setInterval(addm, 500);
+    document.querySelector(".inputs > div")
         .prepend(renderMsg(msgData));
+    document.querySelector("#send")
+        .onclick = addMsg;
+}
+
+function addMsg(){
+    
+    const msgInput = document.querySelector("#messege")
+    const msgVal = msgInput.value
+    msgInput.value = "";
+    
+    const div = document.querySelector("#msgContent");
+    
+    const msg = document.createElement("div")
+    const p = document.createElement("div")
+    msg.classList.add("me");
+    msg.id = "msg";
+    p.innerText = msgVal;
+    msg.appendChild(p);
+    div.appendChild(msg);
+}
+
+function addm(){
+    
+    //const msgInput = document.querySelector("#messege")
+    const msgVal = "bal"//msgInput.value
+    
+    const div = document.querySelector("#msgContent");
+    
+    const msg = document.createElement("div")
+    const p = document.createElement("div")
+    msg.classList.add("he");
+    msg.id = "msg";
+    p.innerText = msgVal;
+    msg.appendChild(p);
+    div.appendChild(msg);
 }
 
 function renderMsg(data){
     const div = document.createElement("div");
+    div.id = "msgContent"
     for(let i=0;i<data.length;i++){
         const msg = document.createElement("div")
         const p = document.createElement("div")

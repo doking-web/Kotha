@@ -17,7 +17,6 @@ function addUser({name, username, email, password}, callback){
             [name, username, email, hash],
             callback);
     });
-    db.close();
 }
 
 // Home page
@@ -110,7 +109,8 @@ router.post("/login", (req, res) => {
         console.log({err, result})
         let error = "Your username or password not valid"
         
-        if(result.length === 0) 
+        
+        if(!result || result.length === 0) 
             return res.render("login", {title: "Login", error});
             
             
@@ -133,7 +133,7 @@ router.post("/login", (req, res) => {
         });
     })
 
-    db.close();
+
 });
 
 

@@ -20,7 +20,7 @@ const watch = require('watch');
 
 
 // const mongoose = require('mongoose');
- 
+
 // mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
 
 const app = express();
@@ -40,9 +40,9 @@ const options = {
     password: '',
     database: 'users',
 };
- 
+
 const sessionStore = new MySQLStore(options);
- 
+
 
 app.use(session({
   secret: 'keyboard cat',
@@ -83,20 +83,19 @@ app.use("/", render);
 /**
  * Devlopment
  * */
-reload(app, {port: 47205}).then(reloadReturned =>{
+reload(app).then(reloadReturned =>{
   // reloadReturned is documented in the returns API in the README
   watch.watchTree(__dirname, function (f, curr, prev) {
     // Fire server-side reload event
     reloadReturned.reload();
   });
   // Reload started, start web server
-  server.listen(port, () => 
+  server.listen(port, () =>
     console.log('server listening on port: ' + port)
   );
 }).catch(err =>
   console.error('Reload could not start, could not start server/sample app', err)
 );
-
 
 
 

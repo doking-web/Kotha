@@ -34,11 +34,18 @@
 
 .chat-layout .inputs #send{
     background: #ddd;
+    bottom: 10px;
     position: absolute;
     right: 10px;
 }
+.chat-layout .inputs > div{
+    height: 300px;
+    overflow-y: scroll;
+}
 
-
+#msgContent{
+    height: auto;
+}
 
 /*.chat-layout #msg{
     padding: 5px;
@@ -48,6 +55,8 @@
 .chat-layout .inputs > div{
     margin-bottom: 20px
 }
+
+
 
 
 .chat-layout #msg div{

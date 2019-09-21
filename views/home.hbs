@@ -1,22 +1,15 @@
-
 <link rel="stylesheet" href="/css/home.css" type="text/css" media="all" />
 
 <section class="chat-layout">
-    
+
     <div class="inputs">
-        <div></div>
-        <input id="messege" type="text" placeholder="Type a messege"/>
-        <button id="send">send</button>
+        <div>
+            <div id="msgContent"></div>
+        </div>
+        <form id="msg_form" method="">
+            <input id="messege" type="text" placeholder="Type a messege" />
+            <input type="submit" id="send">
+        </form>
     </div>
 </section>
 <script src="/script/home.js" type="text/javascript" charset="utf-8"></script>
-
-<script type="text/javascript" charset="utf-8">
-    
-    const sec = document.querySelector(".chat-layout");
-    
-    sec.style.height = innerHeight+'px';
-    console.log(sec);
-</script>
-
-

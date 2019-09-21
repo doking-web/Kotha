@@ -35,11 +35,11 @@
 .chat-layout .inputs #send{
     background: #ddd;
     bottom: 10px;
-    position: absolute;
+    position: fixed;
     right: 10px;
 }
 .chat-layout .inputs > div{
-    height: 300px;
+    max-height: calc(100vh - 50px);
     overflow-y: scroll;
 }
 

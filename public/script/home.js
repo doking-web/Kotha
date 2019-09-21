@@ -1,76 +1,77 @@
-function setup(){
-    
-    document.querySelector(".chat-layout")
-        .style.height = innerHeight+'px';
+function setup() {
 
-    const msgData=[
-        {from:"he", msg:"hi"},
-        {from:"me", msg:"hello"},
-        {from:"he", msg:"nice"},
-        {from:"me", msg:"why"},
-        {from:"he", msg:"u r"},
-        {from:"me", msg:"thx"},
-        {from:"he", msg:"wc"},
-        
-        ]
-    setInterval(addm, 500);
-    document.querySelector(".inputs > div")
-        .prepend(renderMsg(msgData));
-    document.querySelector("#send")
-        .onclick = addMsg;
-}
+    $(".chat-layout").style.height = innerHeight + 'px';
+    const msgInput = $("#messege");
 
-function addMsg(){
-    
-    const msgInput = document.querySelector("#messege")
-    const msgVal = msgInput.value
-    msgInput.value = "";
-    
-    const div = document.querySelector("#msgContent");
-    
-    const msg = document.createElement("div")
-    const p = document.createElement("div")
-    msg.classList.add("me");
-    msg.id = "msg";
-    p.innerText = msgVal;
-    msg.appendChild(p);
-    div.appendChild(msg);
-}
+    $("#msg_form").onsubmit = () => {
+        addMsg(msgInput.value, "me");
+        msgInput.value = "";
+        return false;
+    };
 
-function addm(){
-    
-    //const msgInput = document.querySelector("#messege")
-    const msgVal = "bal"//msgInput.value
-    
-    const div = document.querySelector("#msgContent");
-    
-    const msg = document.createElement("div")
-    const p = document.createElement("div")
-    msg.classList.add("he");
-    msg.id = "msg";
-    p.innerText = msgVal;
-    msg.appendChild(p);
-    div.appendChild(msg);
-}
+    function addMsg(val, from) {
 
-function renderMsg(data){
-    const div = document.createElement("div");
-    div.id = "msgContent"
-    for(let i=0;i<data.length;i++){
+        const div = $("#msgContent");
+
         const msg = document.createElement("div")
         const p = document.createElement("div")
-        msg.classList.add(data[i].from);
+        msg.classList.add(from);
         msg.id = "msg";
-        p.innerText = data[i].msg;
+        p.innerText = val;
         msg.appendChild(p);
         div.appendChild(msg);
+        scrollToBottom();
     }
-    return div;
+
+    function scrollToBottom(){
+        const div = $("#msgContent");
+        div.parentElement.scrollTop = div.scrollHeight;
+    }
+
+    function addm() {
+        const msgVal = "bal";
+        addMsg(msgVal, "he");
+    }
+
+    // TODO: remove below
+
+    const msgData = [{
+            from: "he",
+            msg: "hi"
+        },
+        {
+            from: "me",
+            msg: "hello"
+        },
+        {
+            from: "he",
+            msg: "nice"
+        },
+        {
+            from: "me",
+            msg: "why"
+        },
+        {
+            from: "he",
+            msg: "u r"
+        },
+        {
+            from: "me",
+            msg: "thx"
+        },
+        {
+            from: "he",
+            msg: "wc"
+        },
+
+    ]
+    setInterval(addm, 500);
+
+    msgData.forEach(msg => {
+        addMsg(msg.msg, msg.from);
+    });
+
 }
 
+
 setup();
-
-
-
-
-

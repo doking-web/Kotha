@@ -12,6 +12,7 @@ const app = express();
 const server = http.Server(app);
 const port = process.env.PORT ;
 
+require("./db");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,6 +25,7 @@ const sessionStore = new MySQLStore({
   password: process.env.DB_PASSWORD || "",
   database: 'users',
 });
+
 
 
 app.use(session({
@@ -58,7 +60,7 @@ if(process.env.DEVELOPMENT){
   const watch = require('watch');
   
   
-reload(app).then(reloadReturned =>{
+reload(app, {port: 0}).then(reloadReturned =>{
     // reloadReturned is documented in the returns API in the README
     watch.watchTree(__dirname, function (f, curr, prev) {
       // Fire server-side reload event

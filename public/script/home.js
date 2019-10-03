@@ -29,7 +29,7 @@ function setup() {
     }
 
     function addm() {
-        const msgVal = "bal";
+        const msgVal = "hello";
         addMsg(msgVal, "he");
     }
 
@@ -65,7 +65,7 @@ function setup() {
         },
 
     ]
-    setInterval(addm, 500);
+    //setInterval(addm, 500);
 
     msgData.forEach(msg => {
         addMsg(msg.msg, msg.from);

@@ -2,13 +2,15 @@ const mysql = require("mysql");
 
 
 const con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: process.env.DB_PASSWORD || "",
-  database: "users"
+	host: "localhost",
+	user: "root",
+	password: process.env.DB_PASSWORD || "",
+	database: "kotha",
 });
 
-con.connect(err=> {if(err) console.log(err)})
+con.connect((err)=> {
+	if (err) console.log(err);
+});
 
 // USERS
 con.query(`CREATE TABLE IF NOT EXISTS users (
@@ -18,7 +20,7 @@ con.query(`CREATE TABLE IF NOT EXISTS users (
     user_name VARCHAR(40) UNIQUE NOT NULL,
     password BINARY(60),
     created_date DATETIME DEFAULT CURRENT_TIMESTAMP
-)  ENGINE=INNODB;`)
+)  ENGINE=INNODB;`);
 
 // PROFILE
 con.query(`CREATE TABLE IF NOT EXISTS profile (
@@ -31,16 +33,15 @@ con.query(`CREATE TABLE IF NOT EXISTS profile (
     gender TINYINT NOT NULL,
     phone_no BIGINT UNIQUE NOT NULL,
     public_id BIGINT UNIQUE NOT NULL
-)  ENGINE=INNODB;`)
+)  ENGINE=INNODB;`);
 
 // MESSEGES
 con.query(`CREATE TABLE IF NOT EXISTS messeges (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     messege_text VARCHAR(1500),
-    last_name VARCHAR(25) NOT NULL,
     date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     extra VARCHAR(50)
-)  ENGINE=INNODB;`)
+)  ENGINE=INNODB;`);
 
 
 // CONVERSETION
@@ -52,7 +53,7 @@ con.query(`CREATE TABLE IF NOT EXISTS conversetion (
     FOREIGN KEY (messege_id) REFERENCES messeges(_id),
     FOREIGN KEY (user1_id) REFERENCES users(_id),
     FOREIGN KEY (user2_id) REFERENCES users(_id)
-)  ENGINE=INNODB;`)
+)  ENGINE=INNODB;`);
 
 // USER_CONVERSETION
 con.query(`CREATE TABLE IF NOT EXISTS user_conversetion (
@@ -62,9 +63,7 @@ con.query(`CREATE TABLE IF NOT EXISTS user_conversetion (
     FOREIGN KEY (user_id) REFERENCES users(_id),
     FOREIGN KEY (conversetion_id) REFERENCES conversetion(_id),
     type TINYINT DEFAULT 1
-)  ENGINE=INNODB;`)
-
-
+)  ENGINE=INNODB;`);
 
 
 module.exports = con;

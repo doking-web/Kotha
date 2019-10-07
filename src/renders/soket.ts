@@ -1,19 +1,21 @@
-const passport = require("passport");
-const socket = require("socket.io");
-const passportSocketIo = require("passport.socketio");
-const cookieParser = require("cookie-parser");
-const db = require("../db");
+import passport from "passport";
+import socket from "socket.io";
+import passportSocketIo from "passport.socketio";
+import { Store } from "express-session"
+import { Server } from "http"
+import MySQLStore from "express-mysql-session"
+import { connection as db } from "../db";
 
-
-module.exports = (server, sessionStore) => {
+export const webSoket = (server: Server, sessionStore: Store) => {
     const io = socket(server);
     // io.use();
+
+
     io.use(passportSocketIo.authorize({
         key: "connect.sid",
         secret: process.env.SECRET_KEY_BASE,
-        store: sessionStore,
+        store: sessionStore ,
         passport: passport,
-        cookieParser: cookieParser,
     }));
 
     io.on("connection", (socket) => {
@@ -26,15 +28,20 @@ module.exports = (server, sessionStore) => {
         socket.on("chat message", (msg) => {
             console.log("message: " + msg);
             const user = socket.request.user;
+            const conversationId = 1;
 
             if (user) {
                 const sql = `INSERT INTO messeges (
-                    messege_text)
-                    VALUES (?)`;
+                    messege_text, conversetion_id)
+                    VALUES (?, ?)`;
 
-                const id = db.query(sql, msg);
-
-                console.log({id});
+                db.query(sql, [msg, conversationId], (err, result)=>{
+                    if ( err ) {
+                        console.log(err);
+                    } else {
+                        // const id = result.insertId;
+                    }
+                });
             }
         });
 
@@ -47,3 +54,5 @@ module.exports = (server, sessionStore) => {
         });
     });
 };
+
+

@@ -32,7 +32,6 @@ function setup() {
         const msgVal = "hello";
         addMsg(msgVal, "he");
     }
-
     // TODO: remove below
 
     const msgData = [{

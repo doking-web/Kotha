@@ -25,7 +25,7 @@ app.use(upload());
 const sessionStore = new MySQLStore({
     host: "localhost",
     port: 3306,
-    user: "root",
+    user: "kotha",
     password: process.env.DB_PASSWORD || "",
     database: "kotha",
 });

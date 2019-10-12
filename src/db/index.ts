@@ -1,18 +1,16 @@
-import mysql from "mysql";
-
+import mysql from "mysql"; // For MySQL database connection
 
 export const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: process.env.DB_PASSWORD || "",
-    database: "kotha",
+    host: "localhost", // Host
+    user: "kotha", // Database User
+    password: process.env.DB_PASSWORD || "", // Database user password
+    database: "kotha", // Defult database name
 });
 
-connection.connect((err: mysql.MysqlError)=> {
-    if (err) console.log(err);
-});
+// Connet to the database
+connection.connect((err: any)=> {if (err) throw err;});
 
-// USERS
+// Create USERS table
 connection.query(`CREATE TABLE IF NOT EXISTS users (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
@@ -22,7 +20,7 @@ connection.query(`CREATE TABLE IF NOT EXISTS users (
     created_date DATETIME DEFAULT CURRENT_TIMESTAMP
 )  ENGINE=INNODB;`);
 
-// PROFILE
+// Create PROFILE table
 connection.query(`CREATE TABLE IF NOT EXISTS profile (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -36,7 +34,7 @@ connection.query(`CREATE TABLE IF NOT EXISTS profile (
 )  ENGINE=INNODB;`);
 
 
-// CONVERSETION
+// Create CONVERSETION table
 connection.query(`CREATE TABLE IF NOT EXISTS conversetion (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     user1_id INT NOT NULL,
@@ -45,7 +43,7 @@ connection.query(`CREATE TABLE IF NOT EXISTS conversetion (
     FOREIGN KEY (user2_id) REFERENCES users(_id)
 )  ENGINE=INNODB;`);
 
-// MESSEGES
+// Create MESSEGES table
 connection.query(`CREATE TABLE IF NOT EXISTS messeges (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     messege_text VARCHAR(1500),

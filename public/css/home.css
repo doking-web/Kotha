@@ -1,11 +1,25 @@
-
-.contenar{
+header{
     background: #300630;
     height: 50px;
-
 }
 
+.conversations{
+    padding: 5px 0;
+    background: #ccc;
+}
+.contenar{
+    /* height: 50px; */
+    margin: 2px 0;
+    background: #fff;
+    padding: 5px 10px;
 
+}
+.contenar .con{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    height: 50px;
+}
 
 .chat-layout{
     /*height: 100vh;*/

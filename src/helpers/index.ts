@@ -1,6 +1,2 @@
-
-const {authuser} = require("./auth");
-
-
-export = { authuser };
+export { authuser } from "./auth"
 

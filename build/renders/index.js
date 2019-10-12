@@ -7,6 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const db_1 = require("../db");
+const user_1 = require("./user");
 const router = express_1.Router();
 const saltRounds = 10;
 const pass = "s0heo88D";
@@ -26,9 +27,32 @@ function addUser({ name, username, email, password }, callback) {
         db_1.connection.query(sql, [name, username, email, hash], callback);
     });
 }
+router.use("/user", authuser(), user_1.router);
+router.post("/addconversetion", authuser(), (req, res) => {
+    const user = req.body.user;
+    const sql = `INSERT INTO conversetion (
+        user1_id, user2_id)
+        VALUES (?,?)`;
+    db_1.connection.query(sql, [req.user, user], (err, result) => {
+        if (err)
+            res.json(err);
+        res.json(result);
+    });
+});
+router.post("/addconversetions", (req, res) => {
+    const user = req.body.user;
+    req.user = 1;
+    const sql = `INSERT INTO conversetion (
+        user1_id, user2_id)
+        VALUES (?,?)`;
+    db_1.connection.query(sql, [req.user, user], (err, result) => {
+        if (err)
+            res.json(err);
+        res.json(result);
+    });
+});
 // Home page
 router.get("/", authuser(), (req, res) => {
-    console.log(req.user);
     res.render("home", { title: "Home" });
 });
 router.get("/io", authuser(), (_req, res) => res.render("io"));
@@ -45,17 +69,20 @@ router.post("/register", (req, res) => {
         !passRegExp.test(password) ||
         !emailRegExp.test(email)) {
         req.error = ["Some thing not right."];
+        console.log("err 68");
         return res.render("register", { title: "Register", error: req.error || undefined });
     }
     addUser({ name, username, email, password }, (err, result) => {
         if (err) {
             console.log(err);
+            console.log("err 76");
             return res.render("register", { title: "Register" });
         }
         // console.log(result);
         req.login({ id: result.insertId }, (err) => {
             if (err) {
                 console.error(err);
+                console.log("err 85");
                 return res.render("register", { title: "Register", error: req.error });
             }
             return res.redirect("/");

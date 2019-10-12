@@ -1,11 +1,11 @@
-document.querySelectorAll("nav li a")
-    .forEach((a,i,l)=>{
-    if(a.innerText.toLocaleLowerCase() 
-        === document.title.toLocaleLowerCase())
-        return l[i].classList.add("active");
-});
-navSwipe($("#navul"))
+function map(val, from, to, start, end) {
+    const pdist = to - from
+    const ndist = end - start
 
-loaded()
-$("main").style.marginTop = $("nav").getBoundingClientRect().height + "px";
-$("#navul").style.top = $("nav").getBoundingClientRect().height + "px";
+    Math.min(start, end)
+    return Math.min(start, end) + ((ndist / pdist) * val)
+}
+
+function $(el) {
+    return document.querySelector(el)
+}

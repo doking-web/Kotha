@@ -4,7 +4,7 @@
   "description": "any things to test",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "explorer \"http://localhost:8080/\" & nodemon src/app.ts",
     "test": "start http://127.0.0.1 && nodemon app",
     "start": "node build/app",
     "lint": "eslint .",

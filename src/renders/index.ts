@@ -3,11 +3,14 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import { connection as db } from "../db"
 import mysql, { queryCallback, MysqlError } from "mysql";
-const router = Router()
+import { router as user } from "./user"
+import { authuser } from "../helpers"
+import passport from "passport"
+
+
+export const router = Router()
 const saltRounds = 10;
 const pass = "s0heo88D";
-const passport= require("passport");
-const {authuser} = require("../helpers");
 
 interface User {
     name: string,
@@ -34,9 +37,25 @@ function addUser({name, username , email, password}: User, callback: Function) {
     });
 }
 
+
+router.use("/user", authuser(), user)
+
+
+
+router.post("/addconversetions", (req: any, res: any)=>{
+    const user = req.body.user;
+    req.user = 1
+    const sql = `INSERT INTO conversetion (
+        user1_id, user2_id)
+        VALUES (?,?)`;
+    db.query(sql,[req.user, user], (err: any,result: any)=>{
+        if(err) res.json(err)
+        res.json(result)
+    })
+})
+
 // Home page
 router.get("/", authuser(), (req: any, res) => {
-    console.log(req.user);
     res.render("home", {title: "Home"});
 });
 
@@ -64,6 +83,7 @@ router.post("/register", (req: any, res) => {
     !passRegExp.test(password) ||
     !emailRegExp.test(email)) {
         req.error = ["Some thing not right."];
+        console.log("err 68")
         return res.render("register", {title: "Register", error: req.error || undefined});
     }
 
@@ -71,6 +91,8 @@ router.post("/register", (req: any, res) => {
     addUser({name, username, email, password}, (err: MysqlError, result: any) => {
         if (err) {
             console.log(err);
+            console.log("err 76")
+
             return res.render("register", {title: "Register"});
         }
 
@@ -78,6 +100,8 @@ router.post("/register", (req: any, res) => {
         req.login({id: result.insertId}, (err: MysqlError) => {
             if (err) {
                 console.error(err);
+                console.log("err 85")
+
                 return res.render("register",
                     {title: "Register", error: req.error});
             }
@@ -161,4 +185,3 @@ passport.deserializeUser(function(id: any, done: Function) {
     done(null, id);
 });
 
-module.exports = router;

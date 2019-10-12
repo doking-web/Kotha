@@ -1,5 +1,19 @@
-function setup() {
+async function getConversetions(){
+    const con = await fetch("/user/conversetions",{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+    const json = await con.json()
+    return json;
+}
 
+function displayConversetions(data){ 
+ 
+}
+
+function setup() {
     $(".chat-layout").style.height = innerHeight + 'px';
     const msgInput = $("#messege");
 
@@ -28,50 +42,8 @@ function setup() {
         div.parentElement.scrollTop = div.scrollHeight;
     }
 
-    function addm() {
-        const msgVal = "hello";
-        addMsg(msgVal, "he");
-    }
+    getConversetions().then(displayConversetions)
 
-    // TODO: remove below
-
-    const msgData = [{
-            from: "he",
-            msg: "hi"
-        },
-        {
-            from: "me",
-            msg: "hello"
-        },
-        {
-            from: "he",
-            msg: "nice"
-        },
-        {
-            from: "me",
-            msg: "why"
-        },
-        {
-            from: "he",
-            msg: "u r"
-        },
-        {
-            from: "me",
-            msg: "thx"
-        },
-        {
-            from: "he",
-            msg: "wc"
-        },
-
-    ]
-    //setInterval(addm, 500);
-
-    msgData.forEach(msg => {
-        addMsg(msg.msg, msg.from);
-    });
 
 }
-
-
 setup();

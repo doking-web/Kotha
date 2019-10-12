@@ -1,19 +1,18 @@
-const mysql = require("mysql");
+import mysql from "mysql"; // For MySQL database connection
 
 
-const con = mysql.createConnection({
-	host: "localhost",
-	user: "kotha",
-	password: process.env.DB_PASSWORD || "",
-    database: "kotha",
+export const connection = mysql.createConnection({
+    host: "localhost", // Host
+    user: "kotha", // Database User
+    password: process.env.DB_PASSWORD || "", // Database user password
+    database: "kotha", // Defult database name
 });
 
-con.connect((err)=> {
-	if (err) console.log(err);
-});
+// Connet to the database
+connection.connect((err: any)=> {if (err) throw err;});
 
-// USERS
-con.query(`CREATE TABLE IF NOT EXISTS users (
+// Create USERS table
+connection.query(`CREATE TABLE IF NOT EXISTS users (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(50) UNIQUE NOT NULL,
@@ -22,8 +21,8 @@ con.query(`CREATE TABLE IF NOT EXISTS users (
     created_date DATETIME DEFAULT CURRENT_TIMESTAMP
 )  ENGINE=INNODB;`);
 
-// PROFILE
-con.query(`CREATE TABLE IF NOT EXISTS profile (
+// Create PROFILE table
+connection.query(`CREATE TABLE IF NOT EXISTS profile (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(_id),
@@ -35,35 +34,24 @@ con.query(`CREATE TABLE IF NOT EXISTS profile (
     public_id BIGINT UNIQUE NOT NULL
 )  ENGINE=INNODB;`);
 
-// MESSEGES
-con.query(`CREATE TABLE IF NOT EXISTS messeges (
-    _id INT AUTO_INCREMENT PRIMARY KEY,
-    messege_text VARCHAR(1500),
-    date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    extra VARCHAR(50)
-)  ENGINE=INNODB;`);
 
-
-// CONVERSETION
-con.query(`CREATE TABLE IF NOT EXISTS conversetion (
+// Create CONVERSETION table
+connection.query(`CREATE TABLE IF NOT EXISTS conversetion (
     _id INT AUTO_INCREMENT PRIMARY KEY,
-    messege_id INT NOT NULL,
     user1_id INT NOT NULL,
     user2_id INT NOT NULL,
-    FOREIGN KEY (messege_id) REFERENCES messeges(_id),
     FOREIGN KEY (user1_id) REFERENCES users(_id),
     FOREIGN KEY (user2_id) REFERENCES users(_id)
 )  ENGINE=INNODB;`);
 
-// USER_CONVERSETION
-con.query(`CREATE TABLE IF NOT EXISTS user_conversetion (
+// Create MESSEGES table
+connection.query(`CREATE TABLE IF NOT EXISTS messeges (
     _id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    messege_text VARCHAR(1500),
+    date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
     conversetion_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(_id),
     FOREIGN KEY (conversetion_id) REFERENCES conversetion(_id),
-    type TINYINT DEFAULT 1
+    extra VARCHAR(50)
 )  ENGINE=INNODB;`);
 
 
-module.exports = con;

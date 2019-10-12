@@ -44,3 +44,6 @@ testem.log
 .env
 .DS_Store
 Thumbs.db
+
+# Builds
+/build

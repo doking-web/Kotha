@@ -4,8 +4,7 @@ import { connection as db } from "../db"
 
 export const router = Router()
 
-
-router.post("/conversetions", async (req: any, res: any) => {
+router.post("/conversations", async (req: any, res: any) => {
     const sql = `SELECT * FROM conversetion WHERE user1_id= "?" OR user2_id= "?"`
     db.query(sql, [req.user, req.user], async (err: any, result: any) => {
         if (err) res.json(err)
@@ -15,22 +14,10 @@ router.post("/conversetions", async (req: any, res: any) => {
             for (let i = 0; i < result.length; i++) {
                 userNames.push(await getUserName(result[i]))
             }
-            res.json(userNames)
+            res.json({results: userNames})
         } catch (err) {
             res.json(err) // TODO: ERROR
         }
-    })
-})
-
-
-router.post("/addconversetion", (req: any, res: any) => {
-    const user = req.body.user;
-    const sql = `INSERT INTO conversetion (
-        user1_id, user2_id)
-        VALUES (?,?)`;
-    db.query(sql, [req.user, user], (err: any, result: any) => {
-        if (err) res.json(err)
-        res.json(result)
     })
 })
 

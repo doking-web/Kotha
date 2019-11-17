@@ -1,14 +1,13 @@
 import mysql from "mysql"; // For MySQL database connection
 
-
 export const connection = mysql.createConnection({
     host: "localhost", // Host
     user: "kotha", // Database User
     password: process.env.DB_PASSWORD || "", // Database user password
-    database: "kotha", // Defult database name
+    database: "kotha", // Default database name
 });
 
-// Connet to the database
+// Connect to the database
 connection.connect((err: any)=> {if (err) throw err;});
 
 // Create USERS table
@@ -35,7 +34,7 @@ connection.query(`CREATE TABLE IF NOT EXISTS profile (
 )  ENGINE=INNODB;`);
 
 
-// Create CONVERSETION table
+// Create CONVERSATIONS table
 connection.query(`CREATE TABLE IF NOT EXISTS conversetion (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     user1_id INT NOT NULL,
@@ -44,7 +43,7 @@ connection.query(`CREATE TABLE IF NOT EXISTS conversetion (
     FOREIGN KEY (user2_id) REFERENCES users(_id)
 )  ENGINE=INNODB;`);
 
-// Create MESSEGES table
+// Create MESSAGES table
 connection.query(`CREATE TABLE IF NOT EXISTS messeges (
     _id INT AUTO_INCREMENT PRIMARY KEY,
     messege_text VARCHAR(1500),

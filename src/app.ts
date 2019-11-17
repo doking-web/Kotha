@@ -22,7 +22,7 @@ const __PROJECT_DIR = path.join(__dirname, "../");
 // eslint-disable-next-line new-cap
 const server = new http.Server(app);
 // Get the ableble port for server
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 
 
 // Setup express Body parser

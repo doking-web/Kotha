@@ -38,7 +38,7 @@ function addUser({name, username , email, password}: User, callback: Function) {
 }
 
 
-router.use("/user", authuser(), user)
+router.use("/user"/*, authuser()*/, user)
 
 
 
@@ -53,6 +53,8 @@ router.post("/addconversetions", (req: any, res: any)=>{
         res.json(result)
     })
 })
+
+
 
 // Home page
 router.get("/", authuser(), (req: any, res) => {
@@ -95,8 +97,6 @@ router.post("/register", (req: any, res) => {
 
             return res.render("register", {title: "Register"});
         }
-
-        // console.log(result);
         req.login({id: result.insertId}, (err: MysqlError) => {
             if (err) {
                 console.error(err);
@@ -114,13 +114,12 @@ router.post("/register", (req: any, res) => {
 router.get("/logout", function(req:any, res) {
     req.logout();
     req.session.destroy(function(_err: any) {
-        res.redirect("/"); // Inside a callback… bulletproof!
+        res.redirect("/");
     });
 });
 
 
 router.get("/login", (req, res) => {
-    // console.log(req.user);
     res.render("login", {title: "Login"});
 });
 
@@ -128,9 +127,10 @@ router.get("/login", (req, res) => {
 router.post("/login", (req:any, res: any) => {
     const error = "Your username or password not valid";
 
-    if(!req.body) return res.render("login", {title: "Login", error});
+    if(!req.body || !req.body.username || !req.body.username) return res.render("login", {title: "Login", error});
 
     const loginData = req.body;
+    console.log(req.body)
     const username: string = loginData.username.trim();
     let password: string = loginData.password.trim();
 
